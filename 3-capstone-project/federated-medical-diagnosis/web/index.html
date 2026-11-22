@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java-Based Privacy-Preserving Federated Medical Image Diagnosis System</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <div class="brand-icon">🏥</div>
+      <div>
+        <div class="brand-title">FEDERATED MEDICAL AI PLATFORM</div>
+        <div class="brand-subtitle">Privacy-Preserving Collaborative Learning • FedAvg Core</div>
+      </div>
+    </div>
+    <div class="nav-stats">
+      <div class="stat-pill cyan">
+        <span class="stat-dot pulse"></span>
+        <span>Round: <strong id="navRound">0</strong></span>
+      </div>
+      <div class="stat-pill emerald">
+        <span>Global Acc: <strong id="navAccuracy">72.4%</strong></span>
+      </div>
+      <div class="stat-pill">
+        <span>Loss: <strong id="navLoss">0.6850</strong></span>
+      </div>
+      <div class="stat-pill">
+        <span>🔒 Zero-PII Verified</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs-nav">
+      <button class="tab-btn active" data-tab="tab-dashboard">📊 Dashboard & Hospitals</button>
+      <button class="tab-btn" data-tab="tab-training">⚡ Federated Training (FedAvg)</button>
+      <button class="tab-btn" data-tab="tab-diagnosis">🔬 AI Diagnosis & Grad-CAM</button>
+      <button class="tab-btn" data-tab="tab-blockchain">🔗 Blockchain Audit Ledger</button>
+    </nav>
+
+    <!-- TAB 1: DASHBOARD & HOSPITALS (Module 1 & 4) -->
+    <section id="tab-dashboard" class="tab-pane active">
+      
+      <!-- Top Metrics Overview -->
+      <div class="grid-4" id="overviewCards">
+        <div class="card">
+          <div class="card-subtitle">Active Federated Nodes</div>
+          <div class="card-title" style="font-size: 26px; color: var(--accent-blue);" id="activeNodesCount">4 / 4 Nodes</div>
+          <div class="card-subtitle">Multi-regional hospital consortium</div>
+        </div>
+        <div class="card">
+          <div class="card-subtitle">Confidential Patient Scans</div>
+          <div class="card-title" style="font-size: 26px; color: var(--accent-cyan);" id="totalScansCount">6,700 Scans</div>
+          <div class="card-subtitle">Stored strictly behind hospital firewalls</div>
+        </div>
+        <div class="card">
+          <div class="card-subtitle">Global Convergence</div>
+          <div class="card-title" style="font-size: 26px; color: var(--accent-emerald);" id="convergenceRate">Optimal</div>
+          <div class="card-subtitle">Aggregated via FedAvg algorithm</div>
+        </div>
+        <div class="card">
+          <div class="card-subtitle">Blockchain Audit Blocks</div>
+          <div class="card-title" style="font-size: 26px; color: var(--accent-purple);" id="blockchainCount">1 Blocks</div>
+          <div class="card-subtitle">Proof-of-Federation sealed</div>
+        </div>
+      </div>
+
+      <!-- Hospital Cards Grid (Module 1) -->
+      <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="font-size: 16px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">
+          Distributed Hospital Consortium (Local Data Preservation)
+        </h3>
+        <span style="font-size: 12px; color: var(--accent-emerald);">● All Local Datasets Anonymized & Isolated</span>
+      </div>
+      
+      <div class="grid-4" id="hospitalCardsContainer">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- System Architecture & Performance Summary -->
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Federated Convergence Curve (Accuracy & Loss)</div>
+              <div class="card-subtitle">Global Model progression over FedAvg communication rounds</div>
+            </div>
+          </div>
+          <div id="chartContainer" style="height: 240px; display: flex; align-items: center; justify-content: center;">
+            <svg id="convergenceChartSvg" width="100%" height="220"></svg>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Live Federated Multi-Client Terminal</div>
+              <div class="card-subtitle">Concurrent terminal activity across hospital clients (Slide 7 Reference)</div>
+            </div>
+          </div>
+          <div class="terminal-box" id="dashboardTerminal">
+            <div class="term-line info">[System] Initializing Java Federated Learning Server...</div>
+            <div class="term-line info">[System] Core FedAvg Aggregation module online.</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- TAB 2: FEDERATED TRAINING / FEDAVG (Module 2) -->
+    <section id="tab-training" class="tab-pane">
+      
+      <div class="controls-bar">
+        <button class="btn" id="btnRunRound">⚡ Run Single Federated Round</button>
+        <button class="btn btn-emerald" id="btnAutoTrain">▶️ Run 5 Auto-Rounds</button>
+        <button class="btn btn-rose" id="btnResetTrain">🔄 Reset Model State</button>
+        <span id="trainingStatusText" style="margin-left: auto; font-size: 13px; color: var(--text-muted);">
+          Status: Ready for training round
+        </span>
+      </div>
+
+      <div class="grid-2">
+        <!-- FedAvg Math & Round Details -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">FedAvg Aggregation Protocol</div>
+              <div class="card-subtitle">Mathematical parameter weighting formula</div>
+            </div>
+          </div>
+          <div style="background: var(--bg-secondary); padding: 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-family: 'Consolas', monospace; font-size: 13px; color: var(--accent-cyan); line-height: 1.8;">
+            W<sub>global</sub><sup>(t+1)</sup> = &sum;<sub>k=1</sub><sup>K</sup> (n<sub>k</sub> / N) &bull; W<sub>k</sub><sup>(t+1)</sup><br>
+            <span style="color: var(--text-muted); font-size: 11px;">
+              Where <strong>n<sub>k</sub></strong> is local hospital dataset size, <strong>N</strong> is total network scans, and <strong>W<sub>k</sub></strong> is local model gradient weights.
+            </span>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <div class="meter-label">
+              <span>Current Global Accuracy</span>
+              <strong id="flGlobalAccLabel" style="color: var(--accent-emerald);">72.40%</strong>
+            </div>
+            <div class="meter-bar">
+              <div class="meter-fill emerald" id="flGlobalAccBar" style="width: 72.4%;"></div>
+            </div>
+          </div>
+
+          <div style="margin-top: 16px;">
+            <div class="meter-label">
+              <span>Current Global Loss</span>
+              <strong id="flGlobalLossLabel" style="color: var(--accent-rose);">0.6850</strong>
+            </div>
+            <div class="meter-bar">
+              <div class="meter-fill" id="flGlobalLossBar" style="width: 68.5%; background: var(--accent-rose);"></div>
+            </div>
+          </div>
+
+          <div style="margin-top: 20px; font-size: 13px; color: var(--text-muted); line-height: 1.6;">
+            <strong>Privacy Preservation Guarantee:</strong> Local model training is executed inside each hospital node's local environment. Only abstract model weights and biases (&Delta;W) are transmitted across the network, completely preventing any patient PII exposure.
+          </div>
+        </div>
+
+        <!-- Terminal Logs Window -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Live Federated Execution Logs</div>
+              <div class="card-subtitle">Real-time distributed communication and parameter exchange</div>
+            </div>
+          </div>
+          <div class="terminal-box" id="trainingTerminal" style="height: 340px;">
+            <!-- Logs injected dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Training History Table -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Federated Rounds History Ledger</div>
+            <div class="card-subtitle">Historical records of aggregated weights and verified convergence</div>
+          </div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Round #</th>
+              <th>Participating Hospitals</th>
+              <th>Total Samples</th>
+              <th>Global Accuracy</th>
+              <th>Global Loss</th>
+              <th>Aggregation Hash</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="roundsTableBody">
+            <!-- Dynamic rounds -->
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+    <!-- TAB 3: AI DIAGNOSIS & GRAD-CAM (Module 3) -->
+    <section id="tab-diagnosis" class="tab-pane">
+
+      <!-- Target Model Endpoints (Slide 11 Reference) -->
+      <div class="card" style="margin-bottom: 24px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+          <div>
+            <div class="card-title">Target Model Endpoint</div>
+            <div class="card-subtitle">Auto-selected based on file scan type or manually choose endpoint</div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-outline" id="modeRealBtn">Real Model Mode</button>
+            <button class="btn" id="btnExportPdfDirect" style="background: #eab308; color: #000; font-weight: 700;">📄 Export Clinical PDF Report</button>
+          </div>
+        </div>
+
+        <div class="endpoint-selector">
+          <div class="endpoint-chip active" data-endpoint="/predict/skin">
+            <span>🔬 Skin Lesion (/predict/skin)</span>
+          </div>
+          <div class="endpoint-chip" data-endpoint="/predict/brain">
+            <span>🧠 Brain MRI (/predict/brain)</span>
+          </div>
+          <div class="endpoint-chip" data-endpoint="/predict/pneumonia">
+            <span>🫁 Chest X-ray (/predict/pneumonia)</span>
+          </div>
+          <div class="endpoint-chip" data-endpoint="/predict/covid">
+            <span>⚡ COVID X-ray (/predict/covid)</span>
+          </div>
+        </div>
+
+        <!-- Quick Sample Picker -->
+        <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">
+          Quick-Load Medical Scans (Extracted from Capstone Dataset):
+        </div>
+        <div class="samples-strip" id="samplesContainer">
+          <!-- Injected via JavaScript -->
+        </div>
+
+        <!-- Custom Upload Input -->
+        <div style="display: flex; gap: 12px; align-items: center; margin-top: 10px;">
+          <input type="file" id="fileUploadInput" accept="image/*" style="display: none;">
+          <button class="btn btn-outline" onclick="document.getElementById('fileUploadInput').click()">📁 Choose Custom Scan Image</button>
+          <span id="selectedFileName" style="font-size: 13px; color: var(--accent-cyan);">Selected: skin_vascular_lesion.png</span>
+          
+          <button class="btn" id="btnRunInference" style="margin-left: auto; background: linear-gradient(135deg, #0284c7, #06b6d4); font-size: 14px; padding: 12px 24px;">
+            ✨ RUN TENSORFLOW / FEDERATED INFERENCE
+          </button>
+        </div>
+      </div>
+
+      <!-- Diagnostic Results Section (Matches Slide 11 image17 & image18) -->
+      <div id="diagnosisResultSection" style="display: none;">
+        
+        <!-- Grad-CAM Neural Attention Visualizer (Slide 11 image18) -->
+        <div class="card" style="margin-bottom: 24px;">
+          <div class="card-header" style="text-align: center; display: block;">
+            <div class="card-title" style="justify-content: center; font-size: 18px;">
+              Grad-CAM Neural Attention Visualizer
+            </div>
+            <div class="card-subtitle">
+              Drag slider to compare Raw Scan vs. AI Attention Map (Explainable AI Grad-CAM)
+            </div>
+          </div>
+
+          <div class="gradcam-container" id="gradCamBox">
+            <!-- Background Layer: Raw Scan -->
+            <img src="" id="gradCamRawImg" class="gradcam-img-layer" alt="Raw Scan">
+            
+            <!-- Foreground Layer: Grad-CAM Overlay with Clip-path -->
+            <img src="" id="gradCamHeatmapImg" class="gradcam-img-layer" alt="Grad-CAM" style="clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);">
+            
+            <!-- Slider Divider -->
+            <div class="gradcam-slider-line" id="gradCamSlider" style="left: 50%;">
+              <div class="gradcam-slider-handle">↔</div>
+            </div>
+          </div>
+
+          <div class="gradcam-labels">
+            <span>◀ Raw Medical Scan</span>
+            <span id="sliderSplitLabel" style="color: var(--accent-cyan); font-weight: 600;">50% Split</span>
+            <span>AI Neural Attention Heatmap ▶</span>
+          </div>
+        </div>
+
+        <!-- Clinical Findings Cards (Matches Slide 12 image20) -->
+        <div class="grid-2">
+          
+          <!-- Primary Classification & Pathologies -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-subtitle">PRIMARY CLASSIFICATION</div>
+                <div class="card-title" id="resPrimaryDisease" style="font-size: 24px; color: #fff;">Vascular Lesion</div>
+              </div>
+              <span class="hospital-badge badge-offline" id="resDiagnosticBadge" style="font-size: 13px; padding: 6px 12px;">POSITIVE</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; font-size: 14px;">
+              <div>
+                <span style="color: var(--text-dim);">Confidence:</span>
+                <strong id="resConfidence" style="color: var(--accent-cyan); margin-left: 6px; font-size: 16px;">100.0%</strong>
+              </div>
+              <div>
+                <span style="color: var(--text-dim);">Prediction Time:</span>
+                <strong id="resLatency" style="color: var(--accent-emerald); margin-left: 6px;">1.03 sec</strong>
+              </div>
+            </div>
+
+            <!-- Pathological Probabilities Bars -->
+            <div style="margin-top: 20px;">
+              <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; font-weight: 600;">
+                TOP PATHOLOGICAL CLASSIFICATIONS
+              </div>
+              <div id="pathologyBarsContainer">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Privacy Hash & Blockchain Seal -->
+          <div class="card">
+            <div class="card-title" style="color: var(--accent-emerald);">
+              ✅ INPUT VALIDATION & PRIVACY VERIFICATION
+            </div>
+            <div class="card-subtitle" style="margin-bottom: 16px;">
+              Zero-Knowledge Proof & Anonymized Patient Data
+            </div>
+
+            <div class="zk-seal-card">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 12px; color: var(--accent-blue); font-weight: 600;">🔒 SHA-256 PATIENT PRIVACY HASH</span>
+                <span class="hospital-badge badge-idle" style="color: var(--accent-emerald); border-color: var(--accent-emerald);">ZERO PII STORED</span>
+              </div>
+              <div class="zk-hash-box" id="resPrivacyHash">
+                37533071b5bc0b44c45af488af5daa1c52bbc33eef623099426a7ec19be9b6b5
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;">
+              <div style="background: var(--bg-secondary); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                <div style="font-size: 11px; color: var(--text-dim);">HOSPITAL NODE</div>
+                <div id="resHospitalNode" style="font-size: 14px; font-weight: 600; color: #fff; margin-top: 4px;">East Region Hospital</div>
+              </div>
+              <div style="background: var(--bg-secondary); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                <div style="font-size: 11px; color: var(--text-dim);">FL ROUND</div>
+                <div id="resFlRound" style="font-size: 14px; font-weight: 600; color: var(--accent-cyan); margin-top: 4px;">Round #5</div>
+              </div>
+            </div>
+
+            <div class="zk-seal-card" style="margin-top: 14px;">
+              <div style="font-size: 12px; color: var(--accent-emerald); font-weight: 600; display: flex; align-items: center; gap: 6px;">
+                <span>🛡️ BLOCKCHAIN AUDIT LOG SEAL</span>
+              </div>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+                Block Hash: <span id="resBlockHash" style="font-family: monospace; color: #cbd5e1;">6799c81520d...</span>
+              </div>
+              <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">
+                Only model weights are shared. Patient images never leave the hospital.
+              </div>
+            </div>
+
+            <button class="btn btn-emerald" id="btnOpenReportModal" style="width: 100%; margin-top: 18px; justify-content: center; padding: 12px;">
+              📄 DOWNLOAD SIGNED CLINICAL PDF / HTML REPORT
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- TAB 4: BLOCKCHAIN AUDIT LEDGER (Security Module) -->
+    <section id="tab-blockchain" class="tab-pane">
+      <div class="card" style="margin-bottom: 24px;">
+        <div class="card-header">
+          <div>
+            <div class="card-title">Immutable Federated Blockchain Ledger</div>
+            <div class="card-subtitle">Cryptographic proof-of-federation guaranteeing auditability and zero data tampering</div>
+          </div>
+          <div class="stat-pill emerald">
+            <span class="stat-dot"></span>
+            <span>Chain Integrity: <strong>100% VALID</strong></span>
+          </div>
+        </div>
+
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Block #</th>
+              <th>Timestamp</th>
+              <th>Event Type</th>
+              <th>Payload Summary</th>
+              <th>Block Hash</th>
+              <th>Prev Hash</th>
+            </tr>
+          </thead>
+          <tbody id="blockchainTableBody">
+            <!-- Dynamic blocks -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Clinical Report Modal -->
+  <div class="modal-overlay" id="reportModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 style="font-size: 16px; color: #fff;">OPTIMUS AI MEDICAL REPORT - VERIFIED</h3>
+        <button class="modal-close" id="modalCloseBtn">&times;</button>
+      </div>
+      <div class="modal-body" id="modalReportContainer">
+        <!-- Rendered Report -->
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
